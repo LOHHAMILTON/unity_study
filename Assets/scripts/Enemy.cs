@@ -33,6 +33,7 @@ public class Enemy : MonoBehaviour
             Bullet bullet = other.GetComponent<Bullet>();
             curHealth -= bullet.damage;
             Vector3 reactVec = transform.position - other.transform.position;
+            Destroy(other.gameObject);
 
             StartCoroutine(OnDamage(reactVec));
         }
@@ -55,7 +56,7 @@ public class Enemy : MonoBehaviour
             reactVec = reactVec.normalized;
             reactVec += Vector3.up;
 
-            rigid.AddForce(reactVec * 50, ForceMode.Impulse);
+            rigid.AddForce(reactVec * 5, ForceMode.Impulse);
 
             Destroy(gameObject, 4);
 

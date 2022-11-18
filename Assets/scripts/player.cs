@@ -13,7 +13,7 @@ public class player : MonoBehaviour
     public GameObject[] grenades;
     public int hasGrenades;
     public Camera followCamera;
-
+    public GameObject grenadeObj;
 
     public int ammo;
     public int coin;
@@ -27,6 +27,7 @@ public class player : MonoBehaviour
     bool wDown;
     bool jDown;
     bool fDown;
+    bool gDown;
     bool rDown;
     bool iDown;
     bool isJump;
@@ -73,12 +74,12 @@ public class player : MonoBehaviour
         Move();
         Turn();
         Jump();
+        Grenade();
         Attack();
         Reload();
         Dodge();
         Swap();
         Interation();
-
 
     }
 
@@ -93,6 +94,8 @@ public class player : MonoBehaviour
         sDown2 = Input.GetButtonDown("Swap2");
         sDown3 = Input.GetButtonDown("Swap3");
         fDown = Input.GetButton("Fire1");
+        gDown = Input.GetButton("Fire2");
+
         rDown = Input.GetButtonDown("Reload");
     }
 
@@ -146,7 +149,36 @@ public class player : MonoBehaviour
             isJump = true;
         }
     }
+    void Grenade()
+    {
+        if(hasGrenades == 0)
+        {
+            return;
+        }
+        if(gDown && !isReload && !isSwap)
+        {
 
+            Vector3 vector3 = Input.mousePosition;
+
+
+            Ray ray = followCamera.ScreenPointToRay(Input.mousePosition);
+            
+            RaycastHit rayHit;
+            if (Physics.Raycast(ray, out rayHit, 100)){
+                Vector3 nextVec = (rayHit.point - transform.position).normalized * 20;
+                nextVec.y = 13;
+                
+
+                GameObject instantGrenade = Instantiate(grenadeObj, transform.position, transform.rotation);
+                Rigidbody rigidGrenade = instantGrenade.GetComponent<Rigidbody>();
+                rigidGrenade.AddForce(nextVec, ForceMode.Impulse);
+                rigidGrenade.AddTorque(Vector3.back * 10, ForceMode.Impulse);
+
+                hasGrenades--;
+                grenades[hasGrenades].SetActive(false);
+            }
+        }
+    }
     void Attack()
     {
         if(equipWeapon == null)
@@ -161,6 +193,7 @@ public class player : MonoBehaviour
             equipWeapon.Use();
             anim.SetTrigger(equipWeapon.type == Weapon.Type.Melee? "doSwing": "doShot");
             fireDelay = 0;
+
         }
     }
 
@@ -293,8 +326,6 @@ public class player : MonoBehaviour
 
 
     }
-
-
 
     private void OnCollisionEnter(Collision collision)
     {
