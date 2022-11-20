@@ -24,8 +24,11 @@ public class Grenade : MonoBehaviour
                                                      15,
                                                      Vector3.up, 0f,
                                                      LayerMask.GetMask("Enemy"));
-        foreach(RaycastHit hit in rayHits)
+        foreach(RaycastHit hitObj in rayHits)
+        {
+            hitObj.transform.GetComponent<Enemy>().HitByGrenade(transform.position);
+        }
 
-
+        Destroy(gameObject, 5);
     }
 }
