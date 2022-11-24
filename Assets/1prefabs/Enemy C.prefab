@@ -77,8 +77,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f246691c31c652409d2cf18e2422ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enumType: 2
-  masHealth: 200
+  enemyType: 2
+  maxHealth: 0
   curHealth: 200
   target: {fileID: 0}
   meleeArea: {fileID: 0}
