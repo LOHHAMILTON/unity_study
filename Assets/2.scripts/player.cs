@@ -42,6 +42,7 @@ public class player : MonoBehaviour
     bool isDamage;
     bool isShop;
 
+    const string maxScore = "MaxScore";
 
     Vector3 moveVec;
     Vector3 dodgeVec;

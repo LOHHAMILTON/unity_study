@@ -41,8 +41,18 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        maxScoreTxt.text = string.Format("{0:n0}", PlayerPrefs.GetInt("MaxScore"));
+        maxScoreTxt.text = string.Format("{0:n0}", PlayerPrefs.GetInt("MaxScore").ToString());
     }
+    public void OnCanvasGroupChanged()
+    {
+        menuCam.SetActive(false);
+        gameCam.SetActive(true);
 
+        menuPanel.SetActive(false);
+        gamePanel.SetActive(true);
+
+        player.gameObject.SetActive(true) ;
+
+    }
 }
 
