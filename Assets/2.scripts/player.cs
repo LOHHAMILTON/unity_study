@@ -43,7 +43,6 @@ public class player : MonoBehaviour
     bool isShop;
 
 
-
     Vector3 moveVec;
     Vector3 dodgeVec;
 
@@ -63,6 +62,9 @@ public class player : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
         meshs = GetComponentsInChildren<MeshRenderer>();
+
+        PlayerPrefs.SetInt("MaxScore", 112500);
+
     }
 
     // Start is called before the first frame update
